@@ -44,7 +44,7 @@ cat >$INSDIR/ssr<<EOF
 
 INSDIR='$INSDIR'
 python_ver="\$(ls /usr/bin|grep -e "^python[23]\.[1-9]\+\$"|tail -n1)"
-[ -d /usr/local/etc/SSR/shadowsocksr ] && cd $INSDIR/shadowsocksr
+[ -d \$INSDIR/shadowsocksr ] && cd \$INSDIR/shadowsocksr
 ulimit -n 512000
 
 case "\$1" in
