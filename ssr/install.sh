@@ -110,6 +110,8 @@ chmod -R a+x $INSDIR
 chown -R root:root $INSDIR
 ln -sf $INSDIR/ssr /etc/init.d/ssr
 ln -sf $INSDIR/ssr /usr/local/bin/ssr
+update-rc.d -f ssr remove
+update-rc.d -f ssr defaults
 
 #Modify ShadowsocksR
 sed -i "s/SERVER_PUB_ADDR =.*/SERVER_PUB_ADDR = '$(wget -qO- checkip.amazonaws.com)'/" $INSDIR/shadowsocksr/apiconfig.py
