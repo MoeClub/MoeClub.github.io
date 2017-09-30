@@ -13,10 +13,11 @@ apt-get install -y build-essential
 [ ! -f ./shadowsocksr.zip ] && wget --no-check-certificate -qO ./shadowsocksr.zip 'https://moeclub.github.io/ssr/shadowsocksr.zip'
 [ ! -f ./libsodium-1.0.11.tar.gz ] && wget --no-check-certificate -qO ./libsodium-1.0.11.tar.gz 'https://moeclub.github.io/ssr/libsodium-1.0.11.tar.gz'
 
-#Install
+#Install shadowsocksr
 INSDIR='/usr/local/etc/SSR'
 mkdir -p $INSDIR
 unzip -o ./shadowsocksr.zip -d $INSDIR
+rm -rf ./shadowsocksr*
 
 #Install Libsodium
 tar xvf libsodium-*.tar.gz
@@ -27,7 +28,8 @@ ldconfig
 cd ..
 rm -rf libsodium-*
 
-#Start when boot
+
+#Auto boot
 cat >$INSDIR/ssr<<EOF
 #!/bin/bash
 ### BEGIN INIT INFO
@@ -64,10 +66,13 @@ case "\$1" in
     obfs_param="wt.sinaimg.cn"
     for item in \`echo -e \$SetList\`
       do
-        eval 'read -p "\$item [exp:'\\$\$item']: " \$item'
+        intmp=''
+        eval 'read -p "\$item [exp:'\\$\$item']: " intmp'
+        [ -z \$intmp ] && eval "\$item=\\$\$item" || eval "\$item=\$intmp"
       done
+    UserPort="\$(echo \$UserPort |grep -o '[0-9]\{1,\}')"
     if [ -z \$UserName ] || [ -z \$UserPort ] || [ -z \$Password ] || [ -z \$Method ] || [ -z \$protocol ] || [ -z \$obfs ]; then
-       echo -e "  Either one of 'UserName,UserPort,Password,\nMethod,protocol,obfs,obfs_param' is empty! "
+       echo -e "  Either one of 'UserName,UserPort,Password,\nMethod,protocol,obfs,obfs_param' is invaild! "
        exit 1
     fi
     echo
@@ -80,7 +85,10 @@ case "\$1" in
   del)
     UserName="MoeClub"
     item='UserName'
-    eval 'read -p "\$item [exp:'\\$\$item']: " \$item'
+    intmp=''
+    eval 'read -p "\$item [exp:'\\$\$item']: " intmp'
+    [ -z \$intmp ] && echo "Please input username! " && exit 1
+    eval "\$item=\$intmp"
     \${python_ver} \$INSDIR/shadowsocksr/mujson_mgr.py -d -u \$UserName
   ;;
   ls)
@@ -107,5 +115,6 @@ ln -sf $INSDIR/ssr /usr/local/bin/ssr
 sed -i "s/SERVER_PUB_ADDR =.*/SERVER_PUB_ADDR = '$(wget -qO- checkip.amazonaws.com)'/" $INSDIR/shadowsocksr/apiconfig.py
 
 # Initcfg
-bash $INSDIR/shadowsocksr/initcfg.sh
+bash $INSDIR/shadowsocksr/initcfg.sh >>/dev/null 2>&1
+
 
