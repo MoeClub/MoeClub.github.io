@@ -1,0 +1,111 @@
+#!/bin/bash
+export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+#Check Root
+[ $(id -u) != "0" ] && { echo "Error: You must be root to run this script"; exit 1; }
+apt-get update
+apt-get -y install lsb-release
+apt-get install -y python screen curl
+apt-get install -y python-pip
+apt-get install -y git unzip wget
+apt-get install -y build-essential
+
+#Pre
+[ ! -f ./shadowsocksr.zip ] && wget --no-check-certificate -qO ./shadowsocksr.zip 'https://moeclub.github.io/ssr/shadowsocksr.zip'
+[ ! -f ./libsodium-1.0.11.tar.gz ] && wget --no-check-certificate -qO ./libsodium-1.0.11.tar.gz 'https://moeclub.github.io/ssr/libsodium-1.0.11.tar.gz'
+
+#Install
+INSDIR='/usr/local/etc/SSR'
+mkdir -p $INSDIR
+unzip ./shadowsocksr.zip -d $INSDIR
+
+#Install Libsodium
+tar xvf libsodium-*.tar.gz
+cd ./libsodium-*
+./configure --prefix=/usr
+make && make install
+ldconfig
+cd ..
+rm -rf libsodium-*
+
+#Start when boot
+cat >$INSDIR/ssr<<EOF
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          ssr
+# Required-Start: 	\$all
+# Required-Stop: 	\$all
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description: ssr
+# Description: ssr
+### END INIT INFO
+
+INSDIR='$INSDIR'
+python_ver="\$(ls /usr/bin|grep -e "^python[23]\.[1-9]\+\$"|tail -n1)"
+ulimit -n 512000
+
+case "\$1" in
+  start|restart|"")
+    kill -9 \$(ps -C "\$python_ver \$INSDIR/shadowsocksr/server.py m" -o pid=) >>/dev/null 2>&1
+    \${python_ver} \$INSDIR/shadowsocksr/mujson_mgr.py -c >>/dev/null 2>&1
+    nohup \${python_ver} \$INSDIR/shadowsocksr/server.py m >>/dev/null 2>&1 &
+    ;;
+  stop)
+    kill -9 \$(ps -C "\$python_ver \$INSDIR/shadowsocksr/server.py m" -o pid=) >>/dev/null 2>&1
+    ;;
+  add)
+    SetList='UserName\nUserPort\nPassword\nMethod\nprotocol\nobfs\nobfs_param'
+    UserName="MoeClub"
+    UserPort="80"
+    Password="Vicer"
+    Method="aes-128-cfb"
+    protocol="origin"
+    obfs="http_simple_compatible"
+    obfs_param="wt.sinaimg.cn"
+    for item in \`echo -e \$SetList\`
+      do
+        eval 'read -p "\$item [exp:'\\$\$item']: " \$item'
+      done
+    if [ -z \$UserName ] || [ -z \$UserPort ] || [ -z \$Password ] || [ -z \$Method ] || [ -z \$protocol ] || [ -z \$obfs ]; then
+       echo -e "  Either one of 'UserName,UserPort,Password,\nMethod,protocol,obfs,obfs_param' is empty! "
+       exit 1
+    fi
+    echo
+    [ -n \$obfs_param ] && {
+      \${python_ver} \$INSDIR/shadowsocksr/mujson_mgr.py -a -u \$UserName -p \$UserPort -k \$Password -m \$Method -O \$protocol -o \$obfs -g \$obfs_param 
+    } || {
+      \${python_ver} \$INSDIR/shadowsocksr/mujson_mgr.py -a -u \$UserName -p \$UserPort -k \$Password -m \$Method -O \$protocol -o \$obfs
+    }
+    ;;
+  del)
+    UserName="MoeClub"
+    item='UserName'
+    eval 'read -p "\$item [exp:'\\$\$item']: " \$item'
+    \${python_ver} \$INSDIR/shadowsocksr/mujson_mgr.py -d -u \$UserName
+  ;;
+  ls)
+    [[ -z \$2 ]] && {
+      \${python_ver} \$INSDIR/shadowsocksr/mujson_mgr.py -l
+    } || {
+      \${python_ver} \$INSDIR/shadowsocksr/mujson_mgr.py -l -u \$2
+    }
+  ;;
+  *)
+    echo "Usage: \$0 [start|stop]"
+    exit 1
+    ;;
+esac
+
+EOF
+
+chmod -R a+x $INSDIR
+chown -R root:root $INSDIR
+ln -sf $INSDIR/ssr /etc/init.d/ssr
+ln -sf $INSDIR/ssr /usr/local/bin/ssr
+
+#Modify ShadowsocksR
+sed -i "s/SERVER_PUB_ADDR =.*/SERVER_PUB_ADDR = '$(wget -qO- checkip.amazonaws.com)'/" $INSDIR/shadowsocksr/apiconfig.py
+
+# Initcfg
+bash $INSDIR/shadowsocksr/initcfg.sh
+
