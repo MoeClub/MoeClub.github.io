@@ -52,9 +52,9 @@ case "\$1" in
     kill -9 \$(ps -C "\$python_ver \$INSDIR/shadowsocksr/server.py m" -o pid=) >>/dev/null 2>&1
     \${python_ver} \$INSDIR/shadowsocksr/mujson_mgr.py -c >>/dev/null 2>&1
     PortList="\$(cat /usr/local/etc/SSR/shadowsocksr/mudb.json |grep '"port":.*' |grep -o '[0-9]\{1,\}')"
-    for uPORT in `echo \$PortList`
+    for uPORT in \`echo \$PortList\`
       do
-        for NumTMP in `iptables -L INPUT -n --line-numbers |grep 'dpt:'\$uPORT\$'' |cut -d' ' -f1`
+        for NumTMP in \`iptables -L INPUT -n --line-numbers |grep 'dpt:'\$uPORT\$'' |cut -d' ' -f1\`
           do
             iptables -D INPUT "\$(iptables -L INPUT -n --line-numbers |grep 'dpt:'\$uPORT\$'' |cut -d' ' -f1 |head -n1)"
           done
