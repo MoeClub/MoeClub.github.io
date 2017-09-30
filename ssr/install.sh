@@ -16,7 +16,7 @@ apt-get install -y build-essential
 #Install
 INSDIR='/usr/local/etc/SSR'
 mkdir -p $INSDIR
-unzip ./shadowsocksr.zip -d $INSDIR
+unzip -o ./shadowsocksr.zip -d $INSDIR
 
 #Install Libsodium
 tar xvf libsodium-*.tar.gz
