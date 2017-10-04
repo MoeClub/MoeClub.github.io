@@ -71,8 +71,8 @@ case "\$1" in
     UserName="MoeClub"
     UserPort="80"
     Password="Vicer"
-    Method="aes-128-cfb"
-    protocol="origin"
+    Method="chacha20"
+    protocol="auth_sha1_v4"
     obfs="http_simple_compatible"
     obfs_param="wt.sinaimg.cn"
     for item in \`echo -e \$SetList\`
