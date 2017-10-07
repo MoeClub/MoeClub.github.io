@@ -28,3 +28,18 @@ apt-get install -y apg asciidoc debhelper po-debconf intltool-debian libev-dev l
 dpkg -i shadowsocks-libev_3.0.8+ds-2~bpo8+1_amd64.deb simple-obfs_0.0.3-5~bpo8+1_amd64.deb
 
 ```
+
+
+/etc/shadowsocks-libev/config.json
+```
+{
+    "server":"0.0.0.0",
+    "server_port":80,
+    "local_port":1080,
+    "password":"password",
+    "timeout":60,
+    "method":"chacha20-ietf-poly1305",
+    "plugin":"obfs-server",
+    "plugin_opts":"obfs=http"
+}
+```
