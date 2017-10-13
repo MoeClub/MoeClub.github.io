@@ -109,6 +109,12 @@ case "\$1" in
       \${python_ver} \$INSDIR/shadowsocksr/mujson_mgr.py -l -u \$2
     }
   ;;
+  unstall)
+    update-rc.d -f ssr remove
+    ssr stop
+    rm -rf /usr/local/bin/ssr
+    rm -rf /etc/init.d/ssr
+  ;;
   *)
     echo "Usage: \$0 [start|stop]"
     exit 1
