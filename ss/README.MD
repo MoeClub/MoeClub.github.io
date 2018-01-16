@@ -37,8 +37,8 @@ Android:
       "timeout": 5
     }
 ```
-obfs-local：
-[simple-obfs](https://github.com/shadowsocks/simple-obfs/releases)
+obfs-local：     
+[simple-obfs](https://github.com/shadowsocks/simple-obfs/releases)     
 [simple-obfs-Cygwin](https://github.com/imgk/simple-obfs-Cygwin/releases)
 
 
