@@ -23,3 +23,23 @@ Android:
     "plugin_opts":"obfs=http"
 }
 ```
+
+## config for shadowsocks-windows
+```
+    {
+      "server": "your.server.ip.address",
+      "server_port": 80,
+      "password": "MoeClub.org",
+      "method": "chacha20-ietf-poly1305",
+      "plugin": "obfs-local",
+      "plugin_opts": "obfs-host=www.gov.cn;obfs=http",
+      "remarks": "OBFS",
+      "timeout": 5
+    }
+```
+obfs-local：
+[simple-obfs](https://github.com/shadowsocks/simple-obfs/releases)
+[simple-obfs-Cygwin](https://github.com/imgk/simple-obfs-Cygwin/releases)
+
+
+
