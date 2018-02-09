@@ -32,7 +32,7 @@ cat>/etc/shadowsocks-libev/config.json<<EOF
     "server_port":$PORT,
     "local_port":1080,
     "password":"$PASSWORD",
-    "timeout":60,
+    "timeout":600,
     "method":"chacha20-ietf-poly1305",
     "plugin":"obfs-server",
     "plugin_opts":"obfs=$OBFS"
