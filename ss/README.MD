@@ -17,7 +17,7 @@ Android:
     "server_port":80,
     "local_port":1080,
     "password":"MoeClub.org",
-    "timeout":60,
+    "timeout":600,
     "method":"chacha20-ietf-poly1305",
     "plugin":"obfs-server",
     "plugin_opts":"obfs=http"
@@ -34,7 +34,7 @@ Android:
       "plugin": "obfs-local",
       "plugin_opts": "obfs-host=www.gov.cn;obfs=http",
       "remarks": "OBFS",
-      "timeout": 5
+      "timeout": 600
     }
 ```
 obfs-local：     
