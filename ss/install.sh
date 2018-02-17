@@ -3,6 +3,7 @@
 OBFS='http'
 PORT='80'
 PASSWORD='MoeClub.org'
+METHOD='chacha20-ietf-poly1305'
 
 DataURL='https://moeclub.github.io/ss'
 kBit=$(getconf LONG_BIT)
@@ -33,11 +34,25 @@ cat>/etc/shadowsocks-libev/config.json<<EOF
     "local_port":1080,
     "password":"$PASSWORD",
     "timeout":600,
-    "method":"chacha20-ietf-poly1305",
+    "method":"$METHOD",
     "plugin":"obfs-server",
     "plugin_opts":"obfs=$OBFS"
 }
 
+EOF
+cat>/etc/shadowsocks-libev/config-obfs.json<<EOF
+{
+    "server":"127.0.0.1",
+    "server_port":8388,
+    "local_port":1080,
+    "password":"$PASSWORD",
+    "timeout":600,
+    "method":"$METHOD",
+    "mode":"tcp_and_udp",
+    "fast_open":true,
+    "plugin":"obfs-server",
+    "plugin_opts":"obfs=$OBFS;failover=127.0.0.1:8443;fast-open"
+}
 EOF
 
 [ -f /etc/init.d/shadowsocks-libev ] && bash /etc/init.d/shadowsocks-libev restart
