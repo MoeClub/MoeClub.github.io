@@ -10,8 +10,6 @@ chown -R root:root ./*
 chmod -R a+x ./*
 find . -maxdepth 1 -type f -exec rm -rf {} \;
 cp -raf ./* /
-npm install pm2 -g
-pm2 install pm2-logrotate
 ```
 ## Install mail
 ```
@@ -23,6 +21,5 @@ npm install
 
 ## Start app.js
 ```
-pm2 start app.js --name=mail --log-date-format="YYYY-MM-DD HH:mm Z"
-pm2 save
+cd ./mail && npm start
 ```
