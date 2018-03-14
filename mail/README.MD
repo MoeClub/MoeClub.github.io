@@ -1,6 +1,6 @@
-## Deabin8
+# Deabin8
 
-# Install node.js
+## Install node.js
 ```
 wget -qO 'node-v8.10.0.tar.xz' 'https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.xz'
 tar xvf 'node-v8.10.0.tar.xz'
