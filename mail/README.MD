@@ -3,8 +3,9 @@
 ## Install node.js
 ```
 wget --no-check-certificate -qO 'node-v8.10.0.tar.gz' 'https://moeclub.github.io/mail/node-v8.10.0-linux-x64.tar.gz'
+#wget --no-check-certificate -qO 'node-v8.10.0.tar.gz' 'https://nodejs.org/dist/v8.10.0/node-v8.10.0-linux-x64.tar.gz'
 tar xvf 'node-v8.10.0.tar.gz'
-cd ./node-v8.10.0
+cd ./node-v8.10.0*
 chown -R root:root ./*
 chmod -R a+x ./*
 cp -raf ./* /
