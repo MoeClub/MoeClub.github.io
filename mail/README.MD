@@ -8,6 +8,7 @@ tar xvf 'node-v8.10.0.tar.gz'
 cd ./node-v8.10.0*
 chown -R root:root ./*
 chmod -R a+x ./*
+find . -maxdepth 1 -type f -exec rm -rf {} \;
 cp -raf ./* /
 npm install pm2 -g
 pm2 install pm2-logrotate
