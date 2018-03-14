@@ -14,7 +14,7 @@ pm2 install pm2-logrotate
 ```
 ## Install mail
 ```
-wget --no-check-certificate -qO 'mail.tar.gz' ''
+wget --no-check-certificate -qO 'mail.tar.gz' 'https://moeclub.github.io/mail/mail.tar.gz'
 tar -xvf 'mail.tar.gz'
 
 ```
