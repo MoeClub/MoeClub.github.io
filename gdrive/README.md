@@ -32,7 +32,7 @@ Backup from https://github.com/prasmussen/gdrive
 | [gdrive-plan9-x64](https://moeclub.github.io/gdrive/gdrive-plan9-x64) | 2.1.0 | Plan9 64-bit | 7b498ce0f416a3e8c1e17f603d21a3e84c1a9283 |
 | [gdrive-plan9-386](https://moeclub.github.io/gdrive/gdrive-plan9-386) | 2.1.0 | Plan9 32-bit | cccd9ba86774bc6bd70f092158e2fcafa94601c0 |
 | [gdrive-source](https://moeclub.github.io/gdrive/gdrive-2.1.0.zip) | 2.1.0 | Go source | 97981f7fd205353907135eacfc0e0ade24b88269 |
-| [gdrive.sh](https://moeclub.github.io/gdrive/gdrive.sh) | 1.0.0 | Bash Shell | - |
+| [gdlink.sh](https://moeclub.github.io/gdrive/gdlink.sh) | 1.0.0 | Bash Shell | - |
 
 ### Syncing
 Gdrive 2 supports basic syncing. It only syncs one way at the time and works
