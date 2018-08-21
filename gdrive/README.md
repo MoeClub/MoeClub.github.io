@@ -31,8 +31,8 @@ Backup from https://github.com/prasmussen/gdrive
 | [gdrive-solaris-x64](https://moeclub.github.io/gdrive/gdrive-solaris-x64) | 2.1.0 | Solaris 64-bit | 2da03dfcc818a0bd3588ad850349a5a2554913fb |
 | [gdrive-plan9-x64](https://moeclub.github.io/gdrive/gdrive-plan9-x64) | 2.1.0 | Plan9 64-bit | 7b498ce0f416a3e8c1e17f603d21a3e84c1a9283 |
 | [gdrive-plan9-386](https://moeclub.github.io/gdrive/gdrive-plan9-386) | 2.1.0 | Plan9 32-bit | cccd9ba86774bc6bd70f092158e2fcafa94601c0 |
-| [gdrive-source](https://moeclub.github.io/gdrive/gdrive-2.1.0.zip) | 2.1.0 | Go source | 97981f7fd205353907135eacfc0e0ade24b88269 |
-| [gdlink.sh](https://moeclub.github.io/gdrive/gdlink.sh) | 1.0.0 | Bash Shell | - |
+| [gdrive-source](https://moeclub.github.io/gdrive/gdrive-2.1.0.zip) | 2.1.0 | Go source | dbba8fe08ce861221e353730766105b1eba1ce31 |
+| [gdlink.sh](https://moeclub.github.io/gdrive/gdlink.sh) | 1.0.0 | Bash Shell | 7990187763932ec98e7b41f9e3c356ba0fda7471 |
 
 ### Syncing
 Gdrive 2 supports basic syncing. It only syncs one way at the time and works
