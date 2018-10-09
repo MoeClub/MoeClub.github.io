@@ -3,3 +3,9 @@
 wget --no-check-certificate -qO- 'https://moeclub.github.io/ss/simple/install.sh' |bash 
 
 ```
+## UserData
+```
+#!/bin/bash
+wget --no-check-certificate -qO- 'https://moeclub.github.io/ss/simple/install.sh' |bash
+
+```
